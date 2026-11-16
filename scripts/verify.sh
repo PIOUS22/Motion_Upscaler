@@ -11,7 +11,7 @@ WARN="-Wall -Wextra -Wpedantic -Wshadow -Wstrict-prototypes -Wvla"
 STD="-std=c11 -Iinclude"
 BENCH_ITERS="${BENCH_ITERS:-15}"
 
-[ -f third_party/stb_image.h ] || scripts/fetch_stb.sh
+[ -f third_party/stb_image.h ] || bash scripts/fetch_stb.sh
 
 stb_obj() {  # $1 = extra flags ; compiled with warnings off (third-party code)
   gcc -std=c11 -w -Ithird_party $1 -c tools/stb_impl.c -o "$OUT/stb_impl_$2.o"
