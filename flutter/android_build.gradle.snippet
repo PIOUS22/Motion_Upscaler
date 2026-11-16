@@ -1,0 +1,27 @@
+// android/app/build.gradle  (Groovy DSL)  -- add inside the existing `android { }` block.
+// Assumed layout:   <flutter_app>/native/{CMakeLists.txt, include/, src/}   (copy those three).
+android {
+    ndkVersion flutter.ndkVersion
+
+    defaultConfig {
+        ndk { abiFilters "arm64-v8a" }          // add "armeabi-v7a" / "x86_64" if you must
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_STL=none",       // pure C: no libc++ in the APK
+                          "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON",
+                          "-DUPSCALER_BUILD_CLI=OFF"
+                cFlags "-DNDEBUG"
+            }
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "../../native/CMakeLists.txt"
+            version "3.22.1"
+        }
+    }
+}
+// Result: build/app/intermediates/cxx/.../arm64-v8a/libupscaler.so, packaged as
+// lib/arm64-v8a/libupscaler.so -> ffi.DynamicLibrary.open('libupscaler.so') finds it by name.
+//
+// pubspec.yaml needs only:   dependencies:  ffi: ^2.1.0     (Dart-side helper, not a C runtime dep)
