@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y valgrind
-      - run: BENCH_ITERS=3 scripts/verify.sh
+      - run: BENCH_ITERS=3 bash scripts/verify.sh
 
   apk:
     name: Flutter APK (arm64)
