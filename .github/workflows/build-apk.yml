@@ -41,7 +41,7 @@ jobs:
           cp flutter/lib/*.dart app_build/lib/
           cp app/main.dart app_build/lib/main.dart
           cd app_build
-          flutter pub add ffi image_picker
+          flutter pub add ffi image_picker gal
           python3 ../scripts/patch_gradle.py android/app
 
       - name: Build release APK (arm64 only)
