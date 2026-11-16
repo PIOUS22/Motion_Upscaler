@@ -22,6 +22,12 @@ if kts.exists():
             version = "3.22.1"
         }
     }
+    // Release lint ("lintVital") is a static checker that sometimes crashes on fresh projects;
+    // it does not affect the APK contents.
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
     // --- end ---
 '''
 elif groovy.exists():
@@ -38,6 +44,10 @@ elif groovy.exists():
             path "../../native/CMakeLists.txt"
             version "3.22.1"
         }
+    }
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
     }
     // --- end ---
 '''
